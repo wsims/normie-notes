@@ -1,17 +1,14 @@
+<?php include("_header.php");?>
 <html>
 	<head>
 		<title>Browse Notes</title>
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 
-		<link type="text/css" rel="stylesheet" href="http://web.engr.oregonstate.edu/~braune/NormieNotes/fileViewStyle.css"/>
+		<link type="text/css" rel="stylesheet" href="http://web.engr.oregonstate.edu/~simsw/fileViewStyle.css"/>
 
 	</head>
-
-	<body>
-		<h1>Normie Notes</h1>
-		<h2 id="subtitle">Note Search</h2>
-
+    <body>
 		<?php
 	
 
