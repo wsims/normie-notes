@@ -122,13 +122,13 @@ h2 {
 }
 
 h3 {
-  color: #000000;
-
-  font-family: Helvetica;
-  font-weight: lighter;
-  font-size : 22px;
-  text-align: center;
-  width: 15%;
+    color: #000000;
+    margin-top: 20px;
+    font-family: OpenSans-Regular;
+    font-weight: lighter;
+    font-size : 22px;
+    text-align: center;
+    width: 15%;
   
   border: 3px solid #9B68FF;
   

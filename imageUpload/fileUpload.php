@@ -1,12 +1,13 @@
+<?php include("_header.php");?>
+<?php 
+	if (checkAuth(true) != "") {
+?>
 <html>
-
 	<head>
-		<title>Upload a File</title>
+		<title>Upload Note</title>
 		<link type="text/css" rel="stylesheet" href="fileUploadStyle.css"/>
 	</head>
 	<body>
-		<h1>Normie Notes</h1>
-		<h2>Upload a File</h2>
 		<form method="POST" action="fileReceive.php" enctype="multipart/form-data">
 			<div>
 				<h3>Note Title: </h2>
@@ -37,3 +38,5 @@
 		</form>
 
 	</body>
+</html>
+<?php } ?>
