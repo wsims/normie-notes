@@ -131,6 +131,11 @@
 				$class = $_REQUEST["selectC"];
 				$prof = $_REQUEST["selectP"];
 
+				if($class == NULL && $prof == NULL){
+					$class = "Choose a class";
+					$prof = "Choose a professor";
+				}
+
 				if($class && $class != "Choose a class" && $prof != "Choose a professor"){
 					$myQuery = "SELECT nid, title, class, professor, timeVal FROM notes WHERE class='".$class."' AND professor='".$prof."'";
 				}
@@ -244,7 +249,7 @@
 
 		console.log(myParams);
 		params.innerHTML = myParams;
-
+/*
 		$(document).ready(function(){
 			
 			var isRequest = <?php if($_REQUEST["selectC"]){ echo 1;} else{ echo 0;} ?>;
@@ -255,7 +260,7 @@
 				params.style.visibility = "visible";
 			}
 		});
-
+*/
 		</script>
 		
 	</body>
