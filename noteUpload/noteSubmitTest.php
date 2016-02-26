@@ -13,7 +13,7 @@
 			$stmt -> bind_param("s", $myClass);
 			$stmt -> execute();
 			$stmt -> close();
-			echo "Inserted class into classes";
+			//echo "Inserted class into classes";
 		}
 	}
 
@@ -22,7 +22,7 @@
 			$stmt -> bind_param("s", $myProf);
 			$stmt -> execute();
 			$stmt -> close();
-			echo "Inserted prof into professors";
+			//echo "Inserted prof into professors";
 		}
 	}
 
@@ -46,6 +46,15 @@
 
 	if($_REQUEST["note"]){
 		$note = htmlspecialchars($_REQUEST["note"]);
+	}
+
+	$dataArray = array($title, $class, $prof, $note);
+
+	foreach($dataArray as $curData){
+		if($curData == NULL){
+			exit("Cannot submit note with NULL information");
+		}
+
 	}
 
 	//Convert \n to <br>
@@ -188,21 +197,9 @@
 			$i += 1;
 		}
 		
-
-
-
-
-
-
 		$mysqli -> close();
 
 	?>
-
-
-
-
-
-
 
 	<a href="http://web.engr.oregonstate.edu/~braune/NormieNotes/fileView.php">
 		<h2>View Notes</h2>
