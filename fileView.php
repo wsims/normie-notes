@@ -1,3 +1,4 @@
+<?php include("_header.php");?>
 <html>
 	<head>
 		<title>Browse Notes</title>
@@ -7,20 +8,7 @@
 		<link type="text/css" rel="stylesheet" href="http://web.engr.oregonstate.edu/~simsw/fileViewStyle.css"/>
 
 	</head>
-    
-	<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Upload</a></li>
-                <li><a href="#">Search</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
-        </nav>
-        <img src="logo2.png"/>
-        <h1>Normie Notes</h1>
-    </header>
-    <div id="notes">
+    <body>
 		<?php
 	
 
@@ -115,7 +103,7 @@
 					<option selected="selected">Choose a professor</option>
 				</select>
 			
-				<input type="submit" onclick="setTimeout(unhideParams(), 1000)">
+				<input type="submit" class="button" onclick="setTimeout(unhideParams(), 1000)">
 			</form>
 			<h3 id="searchParams"></h3>
 		</div>	
@@ -139,6 +127,11 @@
 			<?php
 				$class = $_REQUEST["selectC"];
 				$prof = $_REQUEST["selectP"];
+
+				if($class == NULL && $prof == NULL){
+					$class = "Choose a class";
+					$prof = "Choose a professor";
+				}
 
 				if($class && $class != "Choose a class" && $prof != "Choose a professor"){
 					$myQuery = "SELECT nid, title, class, professor, timeVal FROM notes WHERE class='".$class."' AND professor='".$prof."'";
@@ -253,7 +246,7 @@
 
 		console.log(myParams);
 		params.innerHTML = myParams;
-
+/*
 		$(document).ready(function(){
 			
 			var isRequest = <?php if($_REQUEST["selectC"]){ echo 1;} else{ echo 0;} ?>;
@@ -264,7 +257,7 @@
 				params.style.visibility = "visible";
 			}
 		});
-
+*/
 		</script>
-        </div>
+		
 	</body>
