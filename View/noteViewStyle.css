@@ -1,0 +1,139 @@
+html {
+	height: 100%;
+	background: #EEEEEE;
+}
+
+body {
+	height: 100%;
+	margin: 0px;
+}
+
+h1 {
+	font-family: Century Gothic, sans-serif;
+	font-weight: lighter;
+	font-size: 80px;
+	text-align: center;
+	color: #D2C4FF;
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: #9B68FF;
+	margin: 0px;
+	text-shadow: 3px 4px #AAAAAA;
+	background: #FFFFFF;
+	border-top: #9B68FF solid 3px;
+}
+
+h2 {
+	font-family: Century Gothic, sans-serif;
+	font-weight: lighter;
+	font-size: 20px;
+}
+
+h3{
+	margin: 0px;
+	font-family: Century Gothic, sans-serif;
+	font-weight: lighter;
+}
+
+#subtitle {
+	font-size: 30px;
+	text-align: center;
+	color: #D2C4FF;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: #9B68FF;
+	text-shadow: 1px 2px #AAAAAA;
+	background: #FFFFFF;
+	border-bottom: #9B68FF solid 3px;
+}
+
+#mainWrapper {
+	/*background: #CCCCCC;*/
+	/*background: #D8D4FF;*/
+	/*height: inherit;*/
+	height: auto;
+	min-height: 100%;
+	/*padding: 10px;*/
+	background: #D8D4FF;
+}
+
+#noteWrapper {
+	background: #FFFFFF;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 3px solid #9B68FF;
+	margin-top: 50px;
+}
+
+#imageWrapper {
+	text-align: center;
+	background: #FFFFFF;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 3px solid #9B68FF;
+	margin-top: 50px;
+	overflow: hidden;	
+}
+
+#innerWrapper {
+	width: 606px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#title {
+	font-size: 40px;
+	/*background: #EEEEEE;*/
+	background: #D2C4FF;
+	border-bottom: 1px solid #9B68FF;
+	text-align: center;
+	/*width: 500px;*/
+	width: auto;
+	/*
+	margin-left: 15%;
+	margin-right: 70%;
+	*/
+	margin: 0px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	color: #9B68FF;
+}
+
+#class {
+	background: #d2c4ff;
+	text-align: center;
+	width: 200px;
+	/*
+	margin-left: 15%;
+	margin-right: 80%;
+	*/
+	/*margin-left: auto;*/
+	margin-right: auto;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	border: 2px solid #837ba8;
+}
+
+#prof {
+	background: #d2c4ff;
+	text-align: center;
+	width: 200px;
+	/*
+	margin-left: 15%;
+	margin-right: 80%;
+	*/
+	/*margin-left: auto;*/
+	margin-right: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	overflow: hidden;
+	border: 2px solid #837ba8;
+												
+}
+
+#note {
+	height: auto;
+	min-height: 200px;
+	margin: 10px;
+}
