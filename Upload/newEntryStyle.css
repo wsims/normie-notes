@@ -1,0 +1,153 @@
+html{
+	background: #F0F0F0;
+}
+
+body {
+	margin: 0;
+}
+
+h1 {
+	font-family: Century Gothic, sans-serif;
+	font-weight: lighter;
+	font-size: 80px;
+	text-align: center;
+	color: #D2C4FF;
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: #9B68FF;
+	margin: 0px;
+	text-shadow: 3px 4px #AAAAAA;
+	background: #FFFFFF;
+	border-top: #9B68FF solid 3px;
+
+}
+
+h2 {
+	color: #000000;
+	/*
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: #000000;
+	*/
+	font-family: Helvetica;
+	font-weight: lighter;
+	font-size : 22px;
+	text-align: center;
+	width: 15%;
+	/*background: #D2C4FF;*/
+	border: 3px solid #9B68FF;
+	/*margin-left: 500px;*/
+	margin-left: 20%;
+	
+	/*background: rgba(247,219,255,1);
+	background: -moz-linear-gradient(top, rgba(247,219,255,1) 0%, rgba(247,219,255,1) 2%, rgba(210,158,255,1) 89%, rgba(210,158,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(247,219,255,1)), color-stop(2%, rgba(247,219,255,1)), color-stop(89%, rgba(210,158,255,1)), color-stop(100%, rgba(210,158,255,1)));
+	background: -webkit-linear-gradient(top, rgba(247,219,255,1) 0%, rgba(247,219,255,1) 2%, rgba(210,158,255,1) 89%, rgba(210,158,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(247,219,255,1) 0%, rgba(247,219,255,1) 2%, rgba(210,158,255,1) 89%, rgba(210,158,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(247,219,255,1) 0%, rgba(247,219,255,1) 2%, rgba(210,158,255,1) 89%, rgba(210,158,255,1) 100%);
+	background: linear-gradient(to bottom, rgba(247,219,255,1) 0%, rgba(247,219,255,1) 2%, rgba(210,158,255,1) 89%, rgba(210,158,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7dbff', endColorstr='#d29eff', GradientType=0 );
+	*/
+
+	background: rgba(232,229,255,1);
+	background: -moz-linear-gradient(45deg, rgba(232,229,255,1) 0%, rgba(187,180,254,1) 51%, rgba(193,189,255,1) 59%, rgba(179,173,255,1) 60%, rgba(168,170,255,1) 100%);
+	background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(232,229,255,1)), color-stop(51%, rgba(187,180,254,1)), color-stop(59%, rgba(193,189,255,1)), color-stop(60%, rgba(179,173,255,1)), color-stop(100%, rgba(168,170,255,1)));
+	background: -webkit-linear-gradient(45deg, rgba(232,229,255,1) 0%, rgba(187,180,254,1) 51%, rgba(193,189,255,1) 59%, rgba(179,173,255,1) 60%, rgba(168,170,255,1) 100%);
+	background: -o-linear-gradient(45deg, rgba(232,229,255,1) 0%, rgba(187,180,254,1) 51%, rgba(193,189,255,1) 59%, rgba(179,173,255,1) 60%, rgba(168,170,255,1) 100%);
+	background: -ms-linear-gradient(45deg, rgba(232,229,255,1) 0%, rgba(187,180,254,1) 51%, rgba(193,189,255,1) 59%, rgba(179,173,255,1) 60%, rgba(168,170,255,1) 100%);
+	background: linear-gradient(45deg, rgba(232,229,255,1) 0%, rgba(187,180,254,1) 51%, rgba(193,189,255,1) 59%, rgba(179,173,255,1) 60%, rgba(168,170,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e5ff', endColorstr='#a8aaff', GradientType=1 );
+
+	/*
+	-webkit-box-shadow: 3px 3px 11px 1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 3px 3px 11px 1px rgba(0,0,0,0.75);
+	box-shadow: 3px 3px 11px 1px rgba(0,0,0,0.75);
+	*/
+
+	-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+
+
+}
+
+h3 {
+	font-family: Century Gothic, sans-serif;
+	font-weight: lighter;
+	font-size: 30px;
+	text-align: center;
+	width: 100%;
+	/*margin-left: 850px;*/
+	color: #D2C4FF;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: #9B68FF;
+	margin: 0px;
+	background: #FFFFFF;
+	border-bottom: #9B68FF solid 3px;
+
+}
+
+div{
+	width: 100%;
+
+}
+/*
+div input {
+	margin-left: 700px;
+	border: 3px solid #9B68FF;
+	left: 30%;
+	position: abosolute;
+
+}
+
+input {
+	margin-top: 40px;
+	left: 30%;
+	height: 30px;
+
+}
+*/
+input.type1 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 35%;
+	height: 30px;
+	border: 3px solid #D2C4FF;
+	width: 20%;
+}
+
+input.type1:focus{
+	border: 3px solid #9B68FF;
+	outline: 0;
+}
+
+input.type2 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 35%;
+	height: 30px;
+		width: 20%;
+}
+
+textarea {
+	margin-top: 10px;
+	border: 3px solid #D2C4FF;
+	margin-left: 35%;
+	width: 30%;
+	height: 300px;
+	margin-bottom: 10px;
+}
+
+textarea:focus{
+	border: 3px solid #9B68FF;
+	outline: 0;
+}
+
+
+
+#submit {
+	margin-left: 35%;
+}
+
+#submit:hover{
+	-webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
+	box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
