@@ -1,3 +1,4 @@
+<?php include("../_header.php"); ?>
 <html>
 
 <head>
@@ -7,8 +8,11 @@
 </head>
 
 <body>
-	<h1>Normie Notes</h1>
-	<h3>Submit a Note</h3>
+	<?php
+		checkAuth(true);
+	?>
+	<!--<h1>Normie Notes</h1>
+	<h3>Submit a Note</h3>-->
 	<form action="noteSubmit.php" id="myForm" enctype="multipart/form-data" method="POST">
 		<div>
 			<h2>Note Title: </h2>
@@ -34,6 +38,8 @@
 			<h2>File: </h2>
 			<input type="file" id="file" class="type2" name="upload"></input>
 		</div>
+
+		<input type='hidden' name='user' value="<?php echo $_SESSION[onidid] ?>"/> 
 		
 		<input type="submit" id="submit" onClick="validateForm(); return false">
 	</form>

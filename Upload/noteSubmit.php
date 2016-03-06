@@ -14,6 +14,7 @@
 	
 	$isNote = FALSE;
 	$isFile = FALSE;
+	$curUser = $_SESSION["onidid"];
 
 	//Set random ID from 1-1000000
 	
@@ -50,6 +51,10 @@
 			$isNote = TRUE;
 		}
 	}
+
+	if($_REQUEST["user"]){
+		$curUser = htmlspecialchars($_REQUEST["user"]);
+	}
 	
 	if($_FILES["upload"]){
 		$errorInfo = $_FILES['upload']["error"];
@@ -81,9 +86,9 @@
 		}
 	}
 	*/
-	echo "isNote: ".$isNote."<br>";
-	echo "isFile: ".$isFile."<br>";
-	echo "curID: ".$curID."<br>";
+	//echo "isNote: ".$isNote."<br>";
+	//echo "isFile: ".$isFile."<br>";
+	//echo "curID: ".$curID."<br>";
 	//If Note and not File
 	if($isNote && !$isFile){
 
@@ -144,12 +149,23 @@
 			$stmt -> execute();
 			$stmt -> close();
 		}
+
+		$typeOf = "text";
+		//Insert into entries table
+		if($stmt = $mysqli -> prepare("insert into entries(id, title, class, professor, type, user, timeVal) values(?,?,?,?,?,?,?)")){
+			$stmt -> bind_param("isssssi", $curID, $title, $class, $prof, $typeOf, $curUser, $timeVal);
+			$stmt -> execute();
+			$stmt -> close();
+		}
 	} 
 
 	else if($isFile && !$isNote){
 		if(!($mysqli = new mysqli("oniddb.cws.oregonstate.edu", "braune-db", "GxGW1nC0BStHXQcB", "braune-db"))){
 			echo "<h1>Could not connect to database<br></h1>";
 		}	
+
+		//Get unix time
+		$timeVal = time();
 
 		if($fileType == "image/jpeg" && $fileSize < 1048576){
 			$fileData = file_get_contents($tmpFile);
@@ -201,6 +217,13 @@
 				}
 			}
 		}
+		$typeOf = "image";
+		//Insert into entries table
+		if($stmt = $mysqli -> prepare("insert into entries(id, title, class, professor, type, user, timeVal) values(?,?,?,?,?,?,?)")){
+			$stmt -> bind_param("isssssi", $curID, $title, $class, $prof, $typeOf, $curUser, $timeVal);
+			$stmt -> execute();
+			$stmt -> close();
+		}
 	}
 
 	
@@ -216,25 +239,21 @@
 			echo "<h1>Could not connect to database<br></h1>";
 		}	
 
-		echo "<br>BEFORE<br>";
 		if($fileType == "image/jpeg" && $fileSize < 1048576){
 			$fileData = file_get_contents($tmpFile);
 
-			echo "DANK";
 			$query = $mysqli -> prepare("insert into uploads(fid, title, class, professor, filename, filedata) values(?, ?, ?, ?, ?, ?)");
 			$empty = NULL;
 			$query -> bind_param("issssb", $curID, $title, $class, $prof, $fileName, $empty);
 			$query -> send_long_data(5, $fileData);
 			$query -> execute();
-			//$query -> close();
 			echo "<h2>File uploaded successfully</h2>";
 		}
 		else{
 			exit("File must be jpg and under 1MB");
 		}
 
-		echo "<br>AFTER<br>";
-
+		
 		if($stmt = $mysqli -> prepare("insert into notes(nid, title, class, professor, note, timeVal) values(?,?,?,?,?,?)")){
 			$stmt -> bind_param("issssi", $curID, $title, $class, $prof, $note, $timeVal);
 			$stmt -> execute();
@@ -284,6 +303,13 @@
 					$stmt -> close();
 				}
 			}
+		}
+		$typeOf = "text/image";
+		//Insert into entries table
+		if($stmt = $mysqli -> prepare("insert into entries(id, title, class, professor, type, user, timeVal) values(?,?,?,?,?,?,?)")){
+			$stmt -> bind_param("isssssi", $curID, $title, $class, $prof, $typeOf, $curUser, $timeVal);
+			$stmt -> execute();
+			$stmt -> close();
 		}
 	}
 

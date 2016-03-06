@@ -105,6 +105,10 @@ input {
 
 }
 */
+header {
+	margin-bottom: 20px;
+}
+
 input.type1 {
 	margin-top: 10px;
 	margin-bottom: 10px;

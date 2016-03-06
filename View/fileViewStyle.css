@@ -124,6 +124,19 @@ h3 {
 	font-size: 17px;
 }
 
+#userName {
+	text-align: left;
+	font-size: 18px;
+	width: auto;
+	margin-right: 10px;
+	margin-left: auto;
+	margin-top: 40px;
+	position: relative;
+	float: right;
+	color: #9B68FF;
+	display:inline-block;
+}
+
 #time {
 	text-align: left;
 	font-size: 18px;
@@ -141,5 +154,5 @@ h3 {
 	/*background: #EEEEEE;*/
 	/*color: #D8D4FF;*/ 
 	color: #9B68FF;
-	visibility: hidden;
+	/*visibility: hidden;*/
 }
