@@ -1,4 +1,4 @@
-<?php include("_header.php");?>
+<?php include("_header.php"); ?>
 <html>
 	<head>
 		<title>Browse Notes</title>
@@ -8,7 +8,11 @@
 		<link type="text/css" rel="stylesheet" href="http://web.engr.oregonstate.edu/~simsw/fileViewStyle.css"/>
 
 	</head>
-    <body>
+
+	<body>
+		<!--<h1>Normie Notes</h1>
+		<h2 id="subtitle">Note Search</h2>-->
+
 		<?php
 	
 
@@ -29,7 +33,7 @@
 		if($result = $mysqli -> query("SELECT class FROM classes")){
 			while($obj = $result -> fetch_object()){
 				$thisClass = $obj -> class;
-				$newQuery = "SELECT class, professor FROM notes WHERE class='".$thisClass."'";
+				$newQuery = "SELECT class, professor FROM entries WHERE class='".$thisClass."'";
 				if($newResult = $mysqli -> query($newQuery)){
 					while($newObj = $newResult -> fetch_object()){
 						$thisProf = $newObj -> professor;
@@ -103,7 +107,8 @@
 					<option selected="selected">Choose a professor</option>
 				</select>
 			
-				<input type="submit" class="button" onclick="setTimeout(unhideParams(), 1000)">
+				<input type="submit"> 
+				<!--onclick="setTimeout(unhideParams(), 1000)"-->
 			</form>
 			<h3 id="searchParams"></h3>
 		</div>	
@@ -134,13 +139,13 @@
 				}
 
 				if($class && $class != "Choose a class" && $prof != "Choose a professor"){
-					$myQuery = "SELECT nid, title, class, professor, timeVal FROM notes WHERE class='".$class."' AND professor='".$prof."'";
+					$myQuery = "SELECT id, title, class, professor, user, timeVal FROM entries WHERE class='".$class."' AND professor='".$prof."'";
 				}
 				else if($class != "Choose a class" && $prof == "Choose a professor"){
-					$myQuery = "SELECT nid, title, class, professor, timeVal FROM notes WHERE class='".$class."'";
+					$myQuery = "SELECT id, title, class, professor, user, timeVal FROM entries WHERE class='".$class."'";
 				}
 				else if($class == "Choose a class" && $prof == "Choose a professor"){
-					$myQuery = "SELECT nid, title, class, professor, timeVal FROM notes";
+					$myQuery = "SELECT id, title, class, professor, user, timeVal FROM entries";
 				}
 
 
@@ -150,10 +155,11 @@
 					$result = $mysqli -> query($myQuery);
 					$count = 1;
 					while($obj = $result -> fetch_object()){
-						$thisNid = $obj -> nid;
+						$thisNid = $obj -> id;
 						$thisTitle = ($obj -> title);
 						$thisClass = ($obj -> class);
 						$thisProf = ($obj -> professor);
+						$thisUser = ($obj -> user);
 						$timeVal = ($obj -> timeVal);
 
 						$sec = time() - $timeVal;
@@ -169,6 +175,8 @@
 
 						$goTime;
 						$goUnits;
+
+						$thisUser = " by ".$thisUser;
 
 
 						for($i = 0; $i < 7; $i++){
@@ -193,10 +201,10 @@
 
 						echo "<div id='content'>";	
 						echo "<h2 id='index'>".$count."</h2>";
-						echo "<a href='http://web.engr.oregonstate.edu/~braune/NormieNotes/noteView.php?nid=".$thisNid."' style='text-decoration:none'>";
+						echo "<a href='http://web.engr.oregonstate.edu/~simsw/noteView.php?id=".$thisNid."' style='text-decoration:none'>";
 						echo "<h2 id='title'>".$thisTitle."</h2>";
 						echo "</a>";
-						echo "<h2 id='time'>".$submitTime."</h2>";
+						echo "<h2 id='time'>".$submitTime.$thisUser."</h2>";
 						echo "<h3 id='class'>".$thisClass."</h3>";
 						echo "<h3 id='prof'>".$thisProf."</h3>";
 						echo "</div>";
@@ -216,8 +224,8 @@
 		
 		var selectC = <?php echo "'"; if($class != "Choose a class"){echo "".$class;}else{echo "all";} echo "'"; ?>;
 		var selectP = <?php echo "'"; if($prof != "Choose a professor"){echo "".$prof;}else{echo "all";} echo "'"; ?>;
-		console.log(selectC);
-		console.log(selectP);
+		//console.log(selectC);
+		//console.log(selectP);
 
 		/*
 		var classSelect = document.getElementById("selectC");
@@ -244,9 +252,9 @@
 		var myParams = myClass + ", " + myProf;
 
 
-		console.log(myParams);
+		//console.log(myParams);
 		params.innerHTML = myParams;
-/*
+		/*
 		$(document).ready(function(){
 			
 			var isRequest = <?php if($_REQUEST["selectC"]){ echo 1;} else{ echo 0;} ?>;
@@ -257,7 +265,7 @@
 				params.style.visibility = "visible";
 			}
 		});
-*/
+		*/
 		</script>
 		
 	</body>

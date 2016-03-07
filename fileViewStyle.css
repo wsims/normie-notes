@@ -222,3 +222,12 @@ h3 {
 #searchParams {
 	color: #BDBDBD;
 }
+
+#userInfo {
+	font-family: Roboto-Regular;
+    font-weight: lighter;
+	position: absolute;
+	color: #FFFFFF;
+	right: 40px;
+	top: 10px;
+}

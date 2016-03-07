@@ -1,9 +1,7 @@
 <?php 
 session_start(); 
-
 function checkAuth($doRedirect) {
 	if (isset($_SESSION["onidid"]) && $_SESSION["onidid"] != "") return $_SESSION["onidid"];
-
 	 $pageURL = 'http';
 	 if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
 	 $pageURL .= "://";
@@ -12,9 +10,7 @@ function checkAuth($doRedirect) {
 	 } else {
 	  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
 	 }
-
 	$ticket = isset($_REQUEST["ticket"]) ? $_REQUEST["ticket"] : "";
-
 	if ($ticket != "") {
 		$url = "https://login.oregonstate.edu/cas/serviceValidate?ticket=".$ticket."&service=".$pageURL;
 		$html = file_get_contents($url);
@@ -31,6 +27,13 @@ function checkAuth($doRedirect) {
 	} 
 	return "";
 }
+$onidID = checkAuth(false);
+if($onidID){
+	$infoString = "Logged in as, ".$onidID;
+}	
+else{
+	$infoString = "Not logged in";
+}
 ?>
 
 <html>
@@ -39,8 +42,9 @@ function checkAuth($doRedirect) {
         <a href="fileView.php">
             <img src="Header.png"/>
         </a>
+        <?php echo "<span id='userInfo'>".$infoString."</span>"; ?>
         <nav>
-            <form action="fileUpload.php">
+            <form action="newEntry.php">
                 <input type="submit" class="button uploadButton" value="Upload Note">
             </form>
         </nav>
