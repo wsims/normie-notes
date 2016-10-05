@@ -1,16 +1,14 @@
+<?php include("../_header.php");?>
+
 <html>
 	<head>
 		<title>Note View</title>
 	
-		<link type="text/css" rel="stylesheet" href="http://web.engr.oregonstate.edu/~braune/NormieNotes/View/noteViewStyle.css"/>
+		<link type="text/css" rel="stylesheet" href="http://web.engr.oregonstate.edu/~omalleya/noteViewStyle.css"/>
 
 	</head>
 
 	<body>
-
-		<h1>Normie Notes</h1>
-		<h3 id="subtitle">Note View</h3>
-
 		<?php
 
 
@@ -65,7 +63,7 @@
 				echo "<h2 id='prof'>".$prof."</h2>";
 				echo "</div>";
 				echo "<div id='noteWrapper'>";
-				echo "<p id='note'>".$note."</p>";
+				echo "<p id='note' style='text-align:left'>".$note."</p>";
 				echo "</div>";
 				echo "</div>";
 			}
@@ -85,9 +83,9 @@
 				echo "<h2 id='class'>".$class."</h2>";
 				echo "<h2 id='prof'>".$prof."</h2>";
 				echo "</div>";
-				echo "<div id='imageWrapper'>";
-				echo "<img id='upload' src='http://web.engr.oregonstate.edu/~braune/NormieNotes/getImage.php?id=".$id."'/>";
-				echo "</div>";
+                echo "<div id='imageLink'>";
+                echo "<a target=_blank id='upload' href='http://web.engr.oregonstate.edu/~braune/NormieNotes/getImage.php?id=".$id."'> Image attachment</a>";
+                echo "</div>";
 				echo "</div>";
 
 			}
@@ -110,10 +108,10 @@
 				echo "<h2 id='prof'>".$prof."</h2>";
 				echo "</div>";
 				echo "<div id='noteWrapper'>";
-				echo "<p id='note'>".$note."</p>";
-				echo "</div>";
-				echo "<div id='imageWrapper'>";
-				echo "<img id='upload' src='http://web.engr.oregonstate.edu/~braune/NormieNotes/getImage.php?id=".$id."'/>";
+                echo "<div id='imageLink'>";
+                echo "<a target=_blank id='upload' href='http://web.engr.oregonstate.edu/~braune/NormieNotes/getImage.php?id=".$id."'> Image attachment</a>";
+                echo "</div>";
+				echo "<p id='note' style='text-align:left'>".$note."</p>";
 				echo "</div>";
 				echo "</div>";
 			}

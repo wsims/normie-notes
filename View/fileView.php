@@ -5,7 +5,71 @@
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 
-		<link type="text/css" rel="stylesheet" href="http://web.engr.oregonstate.edu/~braune/NormieNotes/View/fileViewStyle.css"/>
+		<link type="text/css" rel="stylesheet" href="http://web.engr.oregonstate.edu/~omalleya/fileViewStyle.css"/>
+
+		<style>
+			#score {
+				text-align: center;
+				font-size: 18px;
+				width: auto;
+				height: 30px;
+				margin: 0px;
+				position: relative;
+				color: #777777;
+				line-height: 30px;
+			}
+			#title{
+				margin-top: 33px;
+				margin-left: 80px;
+			}
+
+			#noteID {
+				display: none;
+			}
+
+			.upvote {
+				display: inline;
+				overflow: hidden;
+				border: none;
+				width: 40px;
+				height: 25px;
+				background: #F7F7F7;
+				outline: none;
+				margin-bottom: 10px;
+				background-image: url(updoot.png);
+			} 
+
+			.upvote-on{
+				background: #F7F7F7;
+				background-image: url(updoot-on.png);
+			}
+
+			.downvote {
+				display: inline;
+				overflow: hidden;
+				border: none;
+				width: 40px;
+				height: 25px;
+				background: #F7F7F7;
+				outline: none;
+				margin-top: 10px;
+				background-image: url(downdoot.png);
+			}
+
+			.downvote-on{
+				background: #F7F7F7;
+				background-image: url(downdoot-on.png);
+			}
+
+			#voting {
+				display: inline;
+				position: absolute;
+				width: 80px;
+				height: 100px;
+				text-align: center;
+			}
+
+		</style>
 
 	</head>
 
@@ -29,6 +93,7 @@
 			return 1;
 		}
 		
+		//Populates Class/Professor associative array
 		$myClassesTest = array();
 		if($result = $mysqli -> query("SELECT class FROM classes")){
 			while($obj = $result -> fetch_object()){
@@ -49,7 +114,7 @@
 		
 		$myClasses = array();
 	
-
+		//Populates class list
 		if($result = $mysqli -> query("SELECT class FROM classes")){
 			while($obj = $result -> fetch_object()){
 				array_push($myClasses, $obj -> class);
@@ -60,7 +125,9 @@
 
 		?>
 
+
 		<script>	
+			//JS for creating/updating drop-down selects
 			function createOption(mySelect, prof){
 				var myOption = document.createElement("option");
 				myOption.value = prof;
@@ -130,8 +197,22 @@
 			</div>
 			-->
 			<?php
-				$class = $_REQUEST["selectC"];
-				$prof = $_REQUEST["selectP"];
+				//Get user's upvoted and downvoted notes
+				if($onidID){
+					$mysqli = new mysqli("oniddb.cws.oregonstate.edu", "braune-db", "GxGW1nC0BStHXQcB", "braune-db");
+
+					$result = $mysqli -> query("SELECT ups, downs FROM users WHERE username='".$onidID."'");
+					$obj = $result -> fetch_object();
+
+					$curUps = unserialize($obj -> ups);
+					$curDowns = unserialize($obj -> downs);
+
+					$mysqli -> close();
+				}	
+
+
+				$class = htmlspecialchars($_REQUEST["selectC"]);
+				$prof = htmlspecialchars($_REQUEST["selectP"]);
 
 				if($class == NULL && $prof == NULL){
 					$class = "Choose a class";
@@ -139,13 +220,13 @@
 				}
 
 				if($class && $class != "Choose a class" && $prof != "Choose a professor"){
-					$myQuery = "SELECT id, title, class, professor, user, timeVal FROM entries WHERE class='".$class."' AND professor='".$prof."'";
+					$myQuery = "SELECT id, title, class, professor, user, timeVal, ups, downs FROM entries WHERE class='".$class."' AND professor='".$prof."' ORDER by downs-ups";
 				}
 				else if($class != "Choose a class" && $prof == "Choose a professor"){
-					$myQuery = "SELECT id, title, class, professor, user, timeVal FROM entries WHERE class='".$class."'";
+					$myQuery = "SELECT id, title, class, professor, user, timeVal, ups, downs FROM entries WHERE class='".$class."' ORDER by downs-ups";
 				}
 				else if($class == "Choose a class" && $prof == "Choose a professor"){
-					$myQuery = "SELECT id, title, class, professor, user, timeVal FROM entries";
+					$myQuery = "SELECT id, title, class, professor, user, timeVal, ups, downs FROM entries ORDER by downs-ups";
 				}
 
 
@@ -154,13 +235,18 @@
 					
 					$result = $mysqli -> query($myQuery);
 					$count = 1;
+					
+					//Echo all entries with correct class and professor
 					while($obj = $result -> fetch_object()){
-						$thisNid = $obj -> id;
-						$thisTitle = ($obj -> title);
-						$thisClass = ($obj -> class);
-						$thisProf = ($obj -> professor);
-						$thisUser = ($obj -> user);
-						$timeVal = ($obj -> timeVal);
+						$thisNid = htmlspecialchars($obj -> id);
+						$thisTitle = htmlspecialchars($obj -> title);
+						$thisClass = htmlspecialchars($obj -> class);
+						$thisProf = htmlspecialchars($obj -> professor);
+						$thisUser = htmlspecialchars($obj -> user);
+						$timeVal = htmlspecialchars($obj -> timeVal);
+						$thisUps = htmlspecialchars($obj -> ups);
+						$thisDowns = htmlspecialchars($obj -> downs);
+						$score = $thisUps - $thisDowns;
 
 						$sec = time() - $timeVal;
 						$min = floor($sec / 60);
@@ -198,9 +284,26 @@
 						$submitTime = "Submitted ".$goTime.$goUnits." ago";
 
 
+						//Create content div for listing in entries table
 
 						echo "<div id='content'>";	
-						echo "<h2 id='index'>".$count."</h2>";
+						//echo "<h2 id='index'>".$count."</h2>";
+						echo "<div id='voting'>";
+						if($onidID && in_array($thisNid, $curUps)){
+							echo "<button class='upvote upvote-on' onClick='toggleVote(this)'></button>";
+						}
+						else{
+							echo "<button class='upvote' onClick='toggleVote(this)'></button>";
+						}
+						echo "<span id='noteID'>".$thisNid."</span>";
+						echo "<h2 id='score'>".$score."</h2>";
+						if($onidID && in_array($thisNid, $curDowns)){
+							echo "<button class='downvote downvote-on' onClick='toggleVote(this)'></button>";
+						}
+						else{
+							echo "<button class='downvote' onClick='toggleVote(this)'></button>";
+						}
+						echo "</div>";
 						echo "<a href='http://web.engr.oregonstate.edu/~braune/NormieNotes/View/noteView.php?id=".$thisNid."' style='text-decoration:none'>";
 						echo "<h2 id='title'>".$thisTitle."</h2>";
 						echo "</a>";
@@ -211,19 +314,20 @@
 						$count += 1;
 
 					}
+					$mysqli -> close();
 				}
 			?>
-
-			
 
 		</div>
 
 		
 		<script>
 
-		
+		//Passing PHP vars to JS		
 		var selectC = <?php echo "'"; if($class != "Choose a class"){echo "".$class;}else{echo "all";} echo "'"; ?>;
 		var selectP = <?php echo "'"; if($prof != "Choose a professor"){echo "".$prof;}else{echo "all";} echo "'"; ?>;
+		
+
 		//console.log(selectC);
 		//console.log(selectP);
 
@@ -254,18 +358,128 @@
 
 		//console.log(myParams);
 		params.innerHTML = myParams;
-		/*
-		$(document).ready(function(){
-			
-			var isRequest = <?php if($_REQUEST["selectC"]){ echo 1;} else{ echo 0;} ?>;
-			var params = document.getElementById("searchParams");
-			console.log(isRequest);
 
-			if(isRequest){
-				params.style.visibility = "visible";
-			}
+		/*
+		$(function(){
+			$('#content #voting').each(function(){
+				if($(this).find('.upvote').hasClass('upvote-on') && $(this).find('.downvote').hasClass('downvote-on')){
+					$(this).find('.upvote').removeClass('upvote-on');
+					$(this).find('.downvote').removeClass('downvote-on');
+				}
+			});
 		});
 		*/
+		
+		//AJAX calls to PHP service for the four voting operations
+		function addUpvote(username, note, $thisScore){
+			var options = {
+				user: username,
+				id: note,
+				action: 1,
+			}
+			$.ajax({
+				type: 'POST',
+				url: '/~braune/NormieNotes/Services/voting.php',
+				data: options,
+				success: function(response){
+					$thisScore.text(response);
+				},
+			});
+		}		
+
+		function removeUpvote(username, note, $thisScore){
+			var options = {
+				user: username,
+				id: note,
+				action: 2,
+			}
+			$.ajax({
+				type: 'POST',
+				url: '/~braune/NormieNotes/Services/voting.php',
+				data: options,
+				success: function(response){
+					$thisScore.text(response);
+				},
+			});
+		}
+
+		function addDownvote(username, note, $thisScore){
+			var options = {
+				user: username,
+				id: note,
+				action: 3,
+			}
+			$.ajax({
+				type: 'POST',
+				url: '/~braune/NormieNotes/Services/voting.php',
+				data: options,
+				success: function(response){
+					$thisScore.text(response);
+				},
+			});
+		}
+
+		function removeDownvote(username, note, $thisScore){
+			var options = {
+				user: username,
+				id: note,
+				action: 4,
+			}
+			$.ajax({
+				type: 'POST',
+				url: '/~braune/NormieNotes/Services/voting.php',
+				data: options,
+				success: function(response){
+					$thisScore.text(response);
+				},
+			});
+		}
+
+		// toggleVote is called when any voting button is clicked
+		// 'item' parameter is the 'this' pointer for the voting button
+		function toggleVote(item){
+			if(loggedIn){
+				var btn = $(item);
+				var user = <?php echo "'".$onidID."'" ?>;
+				var thisID = btn.parent().find("#noteID").text();
+				var $score = btn.parent().find("#score");
+
+				if(btn.hasClass("upvote")){
+					btn.toggleClass("upvote-on");
+					if(btn.hasClass("upvote-on")){
+						addUpvote(user, thisID, $score);
+					}
+					else{
+						removeUpvote(user, thisID, $score);
+					}
+
+					if(btn.parent().find(".downvote").hasClass("downvote-on")){
+						btn.parent().find(".downvote").toggleClass("downvote-on");
+						removeDownvote(user, thisID, $score);
+					}
+				}
+				else{
+					btn.toggleClass("downvote-on");
+					if(btn.hasClass("downvote-on")){
+						addDownvote(user, thisID, $score);
+					}
+					else{
+						removeDownvote(user, thisID, $score);
+					}
+
+					if(btn.parent().find(".upvote").hasClass("upvote-on")){
+						btn.parent().find(".upvote").toggleClass("upvote-on");
+						removeUpvote(user, thisID, $score);
+					}
+				}
+				//Reloads page
+				//window.location.reload();
+			}
+			else{
+				//Alerts user's that aren't logged in
+				alert("You must be logged in to vote");
+			}
+		}
 		</script>
 		
 	</body>
